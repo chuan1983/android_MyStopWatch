@@ -92,7 +92,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void doLap(){
-
+        HashMap<String,String> lap =
+                new HashMap<>();
+        lap.put(from[0],""+ counter);
+        data.add(lap);
+        adapter.notifyDataSetChanged();
     }
     private class CounTask extends TimerTask{
         @Override
