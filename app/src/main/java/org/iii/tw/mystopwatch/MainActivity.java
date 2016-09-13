@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         btnLeft = (Button)findViewById(R.id.btnLeft);
         btnRight = (Button)findViewById(R.id.btnRight);
         clock = (TextView)findViewById(R.id.clock);
-        timer = new Timer();
+        timer = new Timer();         //考慮何時停止
         handler = new UIHandler();
     }
 
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     //Rest /Lap
     public void doLeft(View v){
         if(isRunning){
-            doRest();
+            doReset();
         }else{
             doLap();
         }
@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
     //Start / Stop
     public void doRight(View v){
         isRunning = !isRunning;
-        btnLeft.setText(isRunning?"Stop":"Start");
-        btnRight.setText(isRunning?"Lap":"Rest");
+        btnRight.setText(isRunning?"Stop":"Start");
+        btnLeft.setText(isRunning?"Lap":"Rest");
         if(isRunning){
             doStart();
         }else{
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void doStart(){
         counTask = new CounTask();
-        timer.schedule(counTask.0.10);
+        timer.schedule(counTask,0,10);
     }
     private void doStop(){
         if(counTask != null) {
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         counter = 0;
         handler.sendEmptyMessage(0);    //這邊的值也是都可以 觸發動作
     }
-    private void doRest(){
+    private void doReset(){
 
     }
     private void doLap(){
