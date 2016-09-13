@@ -13,10 +13,13 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     private TextView clock;
-    private Button btnLeft,btnRight;
+    private Button btnLeft,btnRight;       //這邊不用VIEW 因為要讓按鈕可以變動文字
     private boolean isRunning;
     private int counter;
     private Timer timer;
+    private UIHandler handler;        //控制全部UI
+    private CounTask counTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         btnRight = (Button)findViewById(R.id.btnRight);
         clock = (TextView)findViewById(R.id.clock);
         timer = new Timer();
+        handler = new UIHandler();
     }
 
     @Override                  //控制timer 不讓在背景一直被執行
@@ -56,10 +60,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void doStart(){
-
+        counTask = new CounTask();
+        timer.schedule(counTask.0.10);
     }
     private void doStop(){
-
+        if(counTask != null) {
+            counTask.cancel();
+            counTask = null;
+        }
+        counter = 0;
+        handler.sendEmptyMessage(0);    //這邊的值也是都可以 觸發動作
     }
     private void doRest(){
 
@@ -71,9 +81,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             counter++;   //時間到就做這件事  週期任務
+            handler.sendEmptyMessage(0);  //這裡的值都可以,這只做觸發動作
         }
     }
-    private class UITask extends Handler{
+    private class UIHandler extends Handler{
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
