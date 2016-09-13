@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private SimpleAdapter adapter;
     private String[] from = {"title"};
     private int[] to = {R.id.lapitem_title};
-    LinkedList<HashMap<String,String>> data;
+    private LinkedList<HashMap<String,String>> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initListView(){
         data = new LinkedList<>();
-        adapter = new SimpleAdapter(this, data, R.layout.layout_lapitem, from, to);
+        adapter = new SimpleAdapter(
+                this, data, R.layout.layout_lapitem, from, to);
         lapList.setAdapter(adapter);
     }
 
