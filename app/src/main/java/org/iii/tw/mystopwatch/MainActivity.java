@@ -19,12 +19,34 @@ public class MainActivity extends AppCompatActivity {
     }
     //Rest /Lap
     public void doLeft(View v){
-
+        if(isRunning){
+            doRest();
+        }else{
+            doLap();
+        }
     }
     //Start / Stop
     public void doRight(View v){
         isRunning = !isRunning;
         btnLeft.setText(isRunning?"Stop":"Start");
         btnRight.setText(isRunning?"Lap":"Rest");
+        if(isRunning){
+            doStart();
+        }else{
+            doStop();
+        }
+    }
+    private void doStart(){
+
+    }
+    private void doStop(){
+
+    }
+    private void doRest(){
+
+    }
+    private void doLap(){
+
     }
 }
+
