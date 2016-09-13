@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,7 +24,10 @@ public class MainActivity extends AppCompatActivity {
     private UIHandler handler;        //控制全部UI
     private CounTask counTask;
     private ListView lapList;
-
+    private SimpleAdapter adapter;
+    private String[] from = {"title"};
+    private int[] to = {R.id.lapitem_title};
+    LinkedList<HashMap<String,String>> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +52,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initListView(){
-
+        data = new LinkedList<>();
+        adapter = new SimpleAdapter(this, null, R.layout.layout_lapitem, from, to);
+        lapList.setAdapter(adapter);
     }
 
     //Rest /Lap
