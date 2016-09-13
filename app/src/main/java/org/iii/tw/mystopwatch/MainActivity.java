@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLeft,btnRight;
     private boolean isRunning;
     private int counter;
+    private Timer timer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,8 +25,17 @@ public class MainActivity extends AppCompatActivity {
         btnLeft = (Button)findViewById(R.id.btnLeft);
         btnRight = (Button)findViewById(R.id.btnRight);
         clock = (TextView)findViewById(R.id.clock);
-
+        timer = new Timer();
     }
+
+    @Override                  //控制timer 不讓在背景一直被執行
+    public void finish() {
+        timer.purge();
+        timer.cancel();
+        timer=null;
+        super.finish();
+    }
+
     //Rest /Lap
     public void doLeft(View v){
         if(isRunning){
