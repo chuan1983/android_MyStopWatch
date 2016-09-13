@@ -7,6 +7,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnLeft,btnRight;
+    private boolean isRunning;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,11 +17,14 @@ public class MainActivity extends AppCompatActivity {
         btnRight = (Button)findViewById(R.id.btnRight);
 
     }
-
+    //Rest /Lap
     public void doLeft(View v){
 
     }
+    //Start / Stop
     public void doRight(View v){
-
+        isRunning = !isRunning;
+        btnLeft.setText(isRunning?"Stop":"Start");
+        btnRight.setText(isRunning?"Lap":"Rest");
     }
 }
