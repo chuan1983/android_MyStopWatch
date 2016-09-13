@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initListView(){
         data = new LinkedList<>();
-        adapter = new SimpleAdapter(this, null, R.layout.layout_lapitem, from, to);
+        adapter = new SimpleAdapter(this, data, R.layout.layout_lapitem, from, to);
         lapList.setAdapter(adapter);
     }
 
@@ -85,17 +85,19 @@ public class MainActivity extends AppCompatActivity {
             counTask.cancel();
             counTask = null;
         }
-        counter = 0;
-        handler.sendEmptyMessage(0);    //這邊的值也是都可以 觸發動作
+
     }
     private void doReset(){
-
+        counter = 0;
+        handler.sendEmptyMessage(0);    //這邊的值也是都可以 觸發動作
+        data.clear();
+        adapter.notifyDataSetChanged();
     }
     private void doLap(){
         HashMap<String,String> lap =
                 new HashMap<>();
         lap.put(from[0],""+ counter);
-        data.add(lap);
+        data.add(0,lap);             //讓資料往前擠
         adapter.notifyDataSetChanged();
     }
     private class CounTask extends TimerTask{
